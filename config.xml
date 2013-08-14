@@ -1,0 +1,11 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<widget xmlns="http://www.w3.org/ns/widgets" xmlns:gap="http://phonegap.com/ns/1.0"
+	versionCode="1" version="0.0.1" id="ws.yodas.insurgency">
+<name>Insurgency</name>
+<description>Hello World HTML5 app for PhoneGap</description>
+<author href="http://yodas.ws" email="samuel@yodas.ws">Samuel B Grundman</author>
+<preference name="orientation" value="default"/>
+<preference name="fullscreen" value="true"/>
+<feature name="http://api.phonegap.com/1.0/geolocation"/>
+<feature name="http://api.phonegap.com/1.0/camera"/>
+</widget>
