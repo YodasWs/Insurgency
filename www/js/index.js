@@ -20,6 +20,8 @@ var ajax = {
 	}
 };
 
+console.log('index.js loaded');
+
 (function() {
 	document.addEventListener('deviceready', function() {
 		console.log('Device Ready =)');
