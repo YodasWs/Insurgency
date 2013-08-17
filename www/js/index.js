@@ -2,8 +2,6 @@ var ajax = {
 	get: function(url, callback) {
 		alert('ajax.get looking at ' + url);
 		var xhr = XMLHttpRequest();
-		xhr.open('get', url, true);
-		xhr.send();
 		xhr.onreadystatechange = function() {
 			alert('Ajax response ready state = ' + this.readyState);
 			if (this.readyState != 4) return false;
@@ -17,24 +15,11 @@ var ajax = {
 			if (typeof callback == 'function')
 				callback(data);
 		}
+		xhr.open('GET', url, true);
+		xhr.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
+		xhr.send();
 	},
 	post: function(url, data, callback) {
-//		var xhr = XMLHttpRequest();
-//		xhr.open('post', url, true);
-//		xhr.send(data);
-//		xhr.onreadystatechange = function() {
-//			console.log('Ajax response ready state = ' + this.readyState);
-//			if (this.readyState != 4) return false;
-//			var data = null;
-//			if (this.status == 200) {
-//				var type = this.getResponseHeader('Content-type');
-//				data = this.responseText;
-//				if (type == 'application/json')
-//					data = eval('(' + data + ')');
-//			}
-//			if (typeof callback == 'function')
-//				callback(data);
-//		}
 	}
 };
 
