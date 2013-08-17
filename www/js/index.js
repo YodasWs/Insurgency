@@ -17,7 +17,7 @@ var ajax = {
 		}
 		xhr.open('GET', url, true);
 		xhr.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
-		xhr.send();
+		xhr.send(null);
 	},
 	post: function(url, data, callback) {
 	}
