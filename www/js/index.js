@@ -1,3 +1,4 @@
+/*
 var ajax = {
 	this.get = function(url, callback) {
 		console.log('ajax.get looking at ' + url);
@@ -19,15 +20,18 @@ var ajax = {
 		}
 	}
 };
+//*/
 
+document.write('<div>hello from index.js</div>');
 console.log('index.js loaded');
 
 (function() {
 	document.addEventListener('deviceready', function() {
-		console.log('Device Ready =)');
-		ajax.get('http://fps.yodas.ws/friends', function(data) {
-			console.log('Response from ajax received');
-			alert(JSON.stringify(data));
-		});
+//		console.log('Device Ready =)');
+//		ajax.get('http://fps.yodas.ws/friends', function(data) {
+//			console.log('Response from ajax received');
+//			alert(JSON.stringify(data));
+//		});
+alert('deviced ready');
 	}, false);
 })();
