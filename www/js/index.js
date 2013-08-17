@@ -12,12 +12,15 @@ var ajax = {
 				if (type == 'application/json')
 					data = eval('(' + data + ')');
 			}
-			if (typeof callback == 'function')
-				callback(data);
+			if (this.status >= 200 && this.status < 300) {
+				if (typeof callback == 'function')
+					callback(data);
+			} else alert('ajax.get returned status ' + this.status);
 		}
 		xhr.open('GET', url, true);
 		xhr.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
 		xhr.send(null);
+		alert('ajax request sent');
 	},
 	post: function(url, data, callback) {
 	}
@@ -27,10 +30,14 @@ document.write('<div>hello from index.js</div>');
 
 (function() {
 	document.addEventListener('deviceready', function() {
-		console.log('Device Ready =)');
+		alert('Device Ready =)');
+		try {
 		ajax.get('http://fps.yodas.ws/friends', function(data) {
 			console.log('Response from ajax received');
 			alert(JSON.stringify(data));
 		});
+		} catch(e) {
+			alert(e.message;
+		}
 	}, false);
 })();
