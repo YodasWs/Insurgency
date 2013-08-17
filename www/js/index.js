@@ -4,7 +4,7 @@ var ajax = {
 		this.post(url, null, callback);
 	},
 	this.post = function(url, data, callback) {
-		var xhr = XMLHttpRequest(),
+		var xhr = XMLHttpRequest();
 		xhr.open('post', url, true);
 		xhr.send(data);
 		xhr.onreadystatechange = function() {
