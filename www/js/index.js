@@ -1,26 +1,42 @@
-/*
 var ajax = {
 	this.get = function(url, callback) {
-		console.log('ajax.get looking at ' + url);
-		this.post(url, null, callback);
+//		console.log('ajax.get looking at ' + url);
+//		var xhr = XMLHttpRequest();
+//		xhr.open('get', url, true);
+//		xhr.send();
+//		xhr.onreadystatechange = function() {
+//			console.log('Ajax response ready state = ' + this.readyState);
+//			if (this.readyState != 4) return false;
+			var data = null;
+			if (this.status == 200) {
+//				var type = this.getResponseHeader('Content-type');
+//				data = this.responseText;
+//				if (type == 'application/json')
+//					data = eval('(' + data + ')');
+			}
+//			if (typeof callback == 'function')
+//				callback(data);
+//		}
 	},
 	this.post = function(url, data, callback) {
-		var xhr = XMLHttpRequest();
-		xhr.open('post', url, true);
-		xhr.send(data);
-		xhr.onreadystatechange = function() {
-			console.log('Ajax response ready state = ' + this.readyState);
-			if (this.readyState != 4) return false;
-			var type = this.getResponseHeader('Content-type');
-			var data = this.responseText;
-			if (type == 'application/json')
-				data = eval('(' + data + ')');
-			if (typeof callback == 'function')
-				callback(data);
-		}
+//		var xhr = XMLHttpRequest();
+//		xhr.open('post', url, true);
+//		xhr.send(data);
+//		xhr.onreadystatechange = function() {
+//			console.log('Ajax response ready state = ' + this.readyState);
+//			if (this.readyState != 4) return false;
+			var data = null;
+			if (this.status == 200) {
+//				var type = this.getResponseHeader('Content-type');
+//				data = this.responseText;
+//				if (type == 'application/json')
+//					data = eval('(' + data + ')');
+			}
+//			if (typeof callback == 'function')
+//				callback(data);
+//		}
 	}
 };
-//*/
 
 document.write('<div>hello from index.js</div>');
 console.log('index.js loaded');
@@ -32,6 +48,6 @@ console.log('index.js loaded');
 //			console.log('Response from ajax received');
 //			alert(JSON.stringify(data));
 //		});
-alert('deviced ready');
+alert('device ready');
 	}, false);
 })();
