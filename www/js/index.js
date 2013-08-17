@@ -1,11 +1,11 @@
 var ajax = {
 	get: function(url, callback) {
-		console.log('ajax.get looking at ' + url);
+		alert('ajax.get looking at ' + url);
 		var xhr = XMLHttpRequest();
 		xhr.open('get', url, true);
 		xhr.send();
 		xhr.onreadystatechange = function() {
-			console.log('Ajax response ready state = ' + this.readyState);
+			alert('Ajax response ready state = ' + this.readyState);
 			if (this.readyState != 4) return false;
 			var data = null;
 			if (this.status == 200) {
@@ -25,13 +25,13 @@ var ajax = {
 //		xhr.onreadystatechange = function() {
 //			console.log('Ajax response ready state = ' + this.readyState);
 //			if (this.readyState != 4) return false;
-			var data = null;
-			if (this.status == 200) {
+//			var data = null;
+//			if (this.status == 200) {
 //				var type = this.getResponseHeader('Content-type');
 //				data = this.responseText;
 //				if (type == 'application/json')
 //					data = eval('(' + data + ')');
-			}
+//			}
 //			if (typeof callback == 'function')
 //				callback(data);
 //		}
