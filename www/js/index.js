@@ -16,7 +16,7 @@ var ajax = {
 				if (typeof callback == 'function')
 					callback(data);
 			} else alert('ajax.get returned status ' + this.status);
-		}
+		};
 		xhr.open('GET', url, true);
 		xhr.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
 		xhr.send(null);
@@ -32,12 +32,12 @@ document.write('<div>hello from index.js</div>');
 	document.addEventListener('deviceready', function() {
 		alert('Device Ready =)');
 		try {
-		ajax.get('http://fps.yodas.ws/friends', function(data) {
-			console.log('Response from ajax received');
-			alert(JSON.stringify(data));
-		});
+			ajax.get('http://fps.yodas.ws/friends', function(data) {
+				alert(JSON.stringify(data));
+			});
 		} catch(e) {
-			alert(e.message);
+			alert(e);
+//			alert(e.message);
 		}
 	}, false);
 })();
