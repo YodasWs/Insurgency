@@ -37,7 +37,7 @@ document.write('<div>hello from index.js</div>');
 			alert(JSON.stringify(data));
 		});
 		} catch(e) {
-			alert(e.message;
+			alert(e.message);
 		}
 	}, false);
 })();
