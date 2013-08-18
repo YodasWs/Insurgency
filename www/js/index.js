@@ -1,3 +1,4 @@
+window.onerror = function(error) { console.log(error); };
 var ajax = {
 	get: function(url, callback) {
 		alert('ajax.get looking at ' + url);
