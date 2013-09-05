@@ -5,6 +5,16 @@ body {
 	-webkit-text-size-adjust: none;	/* prevent webkit from resizing text to fit */
 	-webkit-user-select: none;	/* prevent copy paste, to allow, change 'none' to 'text' */
 	width: 100%; height: 100%; padding: 0; border: 0; margin: 0;
+	background: black; color: white;
 }
+
+div#radar {
+	display: block; width: 20vmin; height: 20vmin;
+	position: fixed; top: 1vmin; right: 1vmin;
+	border: 2px solid white; border-radius: 50%;
+}
+
 @media screen and (orientation: landscape) {
+	div#radar {
+	}
 }

@@ -27,13 +27,11 @@ var ajax = {
 	}
 };
 
-document.write('<div>hello from index.js</div>');
-
 (function() {
 	document.addEventListener('deviceready', function() {
 		alert('Device Ready =)');
 		try {
-			ajax.get('http://fps.yodas.ws/friends', function(data) {
+			ajax.get('http://yodas.ws/fps/friends', function(data) {
 				alert(JSON.stringify(data));
 			});
 		} catch(e) {
