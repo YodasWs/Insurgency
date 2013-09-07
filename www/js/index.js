@@ -2,14 +2,13 @@ window.onerror = function(error) { console.log(error); };
 var ajax = {
 	get: function(url, callback) {
 		alert('ajax.get looking at ' + url);
-		var xhr = XMLHttpRequest();
+		var xhr = new XMLHttpRequest();
 		xhr.onreadystatechange = function() {
-			alert('Ajax response ready state = ' + this.readyState);
 			if (this.readyState != 4) return false;
 			var data = null;
 			if (this.status == 200) {
-				var type = this.getResponseHeader('Content-type');
 				data = this.responseText;
+				var type = this.getResponseHeader('Content-type');
 				if (type == 'application/json')
 					data = eval('(' + data + ')');
 			}
@@ -19,9 +18,8 @@ var ajax = {
 			} else alert('ajax.get returned status ' + this.status);
 		};
 		xhr.open('GET', url, true);
-		xhr.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
+//		xhr.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
 		xhr.send(null);
-		alert('ajax request sent');
 	},
 	post: function(url, data, callback) {
 	}
@@ -36,7 +34,6 @@ var ajax = {
 			});
 		} catch(e) {
 			alert(e);
-//			alert(e.message);
 		}
 	}, false);
 })();
