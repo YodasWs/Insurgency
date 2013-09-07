@@ -1,39 +1,27 @@
-window.onerror = function(error) { console.log(error); };
-var ajax = {
-	get: function(url, callback) {
-		alert('ajax.get looking at ' + url);
-		var xhr = new XMLHttpRequest();
-		xhr.onreadystatechange = function() {
-			if (this.readyState != 4) return false;
-			var data = null;
-			if (this.status == 200) {
-				data = this.responseText;
-				var type = this.getResponseHeader('Content-type');
-				if (type == 'application/json')
-					data = eval('(' + data + ')');
-			}
-			if (this.status >= 200 && this.status < 300) {
-				if (typeof callback == 'function')
-					callback(data);
-			} else alert('ajax.get returned status ' + this.status);
-		};
-		xhr.open('GET', url, true);
-//		xhr.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
-		xhr.send(null);
-	},
-	post: function(url, data, callback) {
-	}
-};
+﻿window.onerror = function(error) { console.log(error); };
 
-(function() {
-	document.addEventListener('deviceready', function() {
-		alert('Device Ready =)');
-		try {
-			ajax.get('http://yodas.ws/fps/friends', function(data) {
-				alert(JSON.stringify(data));
-			});
-		} catch(e) {
-			alert(e);
-		}
-	}, false);
-})();
+$(document).ready(function() {
+	$('a[href^="#"]').click(function() {
+		$this = $(this);
+		$('article:visible').fadeOut('slow', function() {
+			$($this.attr('href')).fadeIn('slow');
+		});
+		return false;
+	});
+});
+
+(function() { document.addEventListener('deviceready', function() {
+if (device.platform == 'iOS' || device.platform == 'Android' || device.platform == 'Chrome')
+	$('link').first().before('<link rel="stylesheet" href="http://code.jquery.com/mobile/1.3.2/jquery.mobile-1.3.2.min.css"/>');
+/*
+	alert('Device Ready =)');
+	try {
+		$.get('http://yodas.ws/fps/friends', function(data) {
+			alert(JSON.stringify(data));
+		}, 'json');
+	} catch(e) {
+		alert(e);
+	}
+
+//*/
+}, false);})();

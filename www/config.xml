@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <widget xmlns="http://www.w3.org/ns/widgets" xmlns:gap="http://phonegap.com/ns/1.0"
-	versionCode="3" version="0.0.3" id="ws.yodas.insurgency">
+	versionCode="4" version="0.0.4" id="ws.yodas.insurgency">
 	
 <name>Insurgency</name>
 <description>Hello World HTML5 app for PhoneGap</description>
@@ -13,5 +13,5 @@
 <feature name="http://api.phonegap.com/1.0/device" />
 <feature name="http://api.phonegap.com/1.0/camera"/>
 
-<access origin="http://fps.yodas.ws" />
+<access origin="http://yodas.ws" />
 </widget>

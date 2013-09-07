@@ -25,7 +25,7 @@ var device = {
 		return (navigator.userAgent.match(/\((.*?;)?\s*(.*?(windows|linux).*?)\)/i))[2].trim();
 	})(),
 	platform:(function() {
-		return (navigator.userAgent.match(/\w*(Win|Linux|iPod|iPhone|Android)\w*/))[0].trim();
+		return (navigator.userAgent.match(/\w*(IE|Chrome|Safari|iPod|iPhone|Android)\w*/))[0].trim();
 	})(),
 	version:(function() {
 		return (navigator.userAgent.match(/(IE|Chrome|Safari|Firefox)\/?\s*([\d\.]*)/))[2].trim();
@@ -33,6 +33,7 @@ var device = {
 	uuid:'do-not-check',
 	cordova:'sam-testing'
 };
+device.model = device.name;
 console.log('userAgent: ' + navigator.userAgent);
 console.log('device: ' + JSON.stringify(device));
 
