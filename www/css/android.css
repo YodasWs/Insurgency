@@ -1,0 +1,4 @@
+﻿/* Styles for Android devices */
+article[data-role="page"] > section[data-role="content"]:not(:nth-child(1)) {
+	display: none;
+}

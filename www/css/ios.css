@@ -1,0 +1,7 @@
+﻿/* Styles of iOS devices */
+article[data-role="page"] > section[data-role="content"]:not(:nth-child(1)) {
+	display: none;
+}
+article[data-role="page"] [data-role="header"] > a[data-role="button"][data-icon="back"] {
+	float: left; margin: 5px;
+}

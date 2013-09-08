@@ -18,13 +18,27 @@ if (!window.PhoneGap) // Shim for browser testing
 <body>
 <article data-role="page" id="home">
 	<section data-role="content">
-		<h1>Insurgency</h1>
-		<a href="#mission" data-role="button">Play</a>
+		<header data-role="header">
+			<h1>Insurgency</h1>
+		</header>
+		<div data-role="controlgroup">
+			<a href="#mission" data-role="button">Play</a>
+			<a href="#about" data-role="button">About</a>
+		</div>
+	</section>
+	<section data-role="content" id="about">
+		<header data-role="header">
+			<h1>About Insurgency</h1>
+		</header>
 	</section>
 </article>
-<article data-role="page" id="mission">
-	<h1>Good Luck</h1>
-	<div id="radar"></div>
+<article data-theme="a" data-role="page" id="mission">
+	<section data-role="content">
+		<header data-role="header">
+			<h1>Good Luck</h1>
+		</header>
+		<div id="radar"></div>
+	</section>
 </article>
 </body>
 </html>
