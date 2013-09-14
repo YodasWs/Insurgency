@@ -2,6 +2,18 @@
 window.onerror = function(error) { console.log(error); };
 if (device.platform == 'Chrome') device.platform = 'iOS';
 
+function sendLogin(callback) {
+	var username = prompt('Username');
+	var password = prompt('Password');
+	if (username && password) $.ajax('http://yodas.ws/fps/user', {
+		password:password,username:username,statusCode:{
+			200:function() { if (typeof callback === 'function') callback(); },
+			401:function() { sendLogin(callback); },
+			418:function() { alert('error'); }
+		}
+	}); else console.log('not logged in');
+}
+
 $(document).ready(function() {
 	// TODO: Add iOS Back Button to Headers :-\
 	if (device.platform == 'iOS') {
@@ -41,6 +53,19 @@ $(document).ready(function() {
 			$('body').css('overflow','');
 		});
 		return false;
+	}
+	if ($(this).attr('href') == '#mission') {
+		$.get('http://yodas.ws/fps/user', {
+		}, function(data) {
+alert(JSON.stringify(data));
+			if (data.error) {
+				return;
+			}
+		}, 'json').fail(function(jqXHR) {
+			if (jqXHR.status == '401') sendLogin(function() {
+				$this.click();
+			});
+		});
 	}
 	switch(device.platform) {
 	case 'iOS': case 'Android':
