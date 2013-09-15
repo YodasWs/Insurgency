@@ -22,14 +22,24 @@ if (!window.PhoneGap) // Shim for browser testing
 			<h1>Insurgency</h1>
 		</header>
 		<div data-role="controlgroup">
-			<a href="#mission" data-role="button">Play</a>
+			<a href="#login" data-role="button">Login</a>
 			<a href="#about" data-role="button">About</a>
 		</div>
 	</section>
 	<section data-role="content" id="about">
 		<header data-role="header">
-			<h1>About Insurgency</h1>
+			<h1>About</h1>
 		</header>
+	</section>
+	<section data-role="content" id="login">
+		<header data-role="header">
+			<h1>Login</h1>
+		</header>
+		<form data-role="fieldcontain">
+			<label><input type="email" name="username" placeholder="Username" data-clear-btn="true" /></label>
+			<label><input type="password" name="password" /></label>
+			<input type="submit" value="Login" />
+		</form>
 	</section>
 </article>
 <article data-theme="a" data-role="page" id="mission">

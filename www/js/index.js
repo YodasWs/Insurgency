@@ -14,25 +14,20 @@ function sendLogin(callback) {
 	}); else console.log('not logged in');
 }
 
-$(document).ready(function() {
-	// TODO: Add iOS Back Button to Headers :-\
-	if (device.platform == 'iOS') {
-		$('article#home > section[data-role="content"]:not(:nth-child(1)) > header[data-role="header"]').prepend(
-			'<a href="#home" data-role="button" data-icon="back" data-inline="true">Back</a>'
-		);
-		$('article#home > section[data-role="content"]:not(:nth-child(1)) a[data-role="button"]').buttonMarkup('refresh');
-	}
-
-	// TODO: Change "Page"
-	$('a[href^="#"]').click(function() {
-		$this = $(this);
-//		if ($this.closest('article').is('#home')) // For phones with back buttons
-//			history.pushState({page:$this.attr('href')}, null, $this.attr('href').substring(1));
-	if ($($this.attr('href')).closest('article').attr('id') == 'home') {
-		// Slide to New Section
-		var oldSection = $this.closest('section');
-		var newSection = $($this.attr('href'));
-		if ($this.attr('href') == '#home') newSection = $('#home > section[data-role="content"]:first');
+function switchSection(newSection, oldSection) {
+	if (typeof oldSection === 'string')
+		oldSection = $(oldSection);
+//	if (oldSection.closest('article').is('#home')) // For phones with back buttons
+//		history.pushState({page:$this.attr('href')}, null, $this.attr('href').substring(1));
+	if (typeof newSection === 'string' && newSection == '#home')
+		newSection = $('#home > section[data-role="content"]:first');
+	else if (typeof newSection === 'string')
+		newSection = $('section' + newSection);
+	else if (typeof newSection !== 'object' || typeof newSection.closest !== 'function' || newSection.closest('article').attr('id') != 'home')
+		return false;
+	// Slide to New Section
+//	switch(device.platform) {
+//	case 'iOS': case 'Android':
 		oldSection.css({
 			position:'absolute',top:oldSection.offset().top+'px'
 		});
@@ -50,10 +45,29 @@ $(document).ready(function() {
 		}, 'slow', function() {
 			$(this).css({position:''});
 			oldSection.hide();
-			$('body').css('overflow','');
+			$('body').css({overflow:''});
 		});
-		return false;
+//		break;
+//	case 'WinCE': case 'Win32NT':
+//		break;
+//	}
+	return false;
+}
+
+$(document).ready(function() {
+	// TODO: Add iOS Back Button to Headers :-\
+	if (device.platform == 'iOS') {
+		$('article#home > section[data-role="content"]:not(:nth-child(1)) > header[data-role="header"]').prepend(
+			'<a href="#home" data-role="button" data-icon="back" data-inline="true">Back</a>'
+		);
+		$('article#home > section[data-role="content"]:not(:nth-child(1)) a[data-role="button"]').buttonMarkup('refresh');
 	}
+
+	// TODO: Change "Page"
+	$('a[href^="#"]').click(function() {
+		$this = $(this);
+	if ($($(this).attr('href')).closest('article').is(':visible'))
+		return switchSection($(this).attr('href'), $(this).closest('section'));
 	if ($(this).attr('href') == '#mission') {
 		$.get('http://yodas.ws/fps/user', {
 		}, function(data) {
@@ -61,11 +75,7 @@ alert(JSON.stringify(data));
 			if (data.error) {
 				return;
 			}
-		}, 'json').fail(function(jqXHR) {
-			if (jqXHR.status == '401') sendLogin(function() {
-				$this.click();
-			});
-		});
+		}, 'json');
 	}
 	switch(device.platform) {
 	case 'iOS': case 'Android':

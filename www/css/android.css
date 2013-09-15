@@ -2,3 +2,7 @@
 article[data-role="page"] > section[data-role="content"]:not(:nth-child(1)) {
 	display: none;
 }
+
+section#login form[data-role="fieldcontain"] {
+	text-align: center;
+}
