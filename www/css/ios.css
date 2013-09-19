@@ -6,6 +6,7 @@ article[data-role="page"] [data-role="header"] > a[data-role="button"][data-icon
 	float: left; margin: 5px;
 }
 
+section#signup form[data-role="fieldcontain"],
 section#login form[data-role="fieldcontain"] {
 	text-align: center;
 }

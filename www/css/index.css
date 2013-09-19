@@ -1,4 +1,5 @@
 ﻿/* https://github.com/phonegap/phonegap-start/blob/master/www/css/index.css */
+
 * { -webkit-tap-highlight-color: rbga(0,0,0,0); }
 body {
 	-webkit-touch-callout: none;	/* prevent callout to copy image, etc when tap to hold */
@@ -12,6 +13,14 @@ div#radar {
 	display: block; width: 20vmin; height: 20vmin;
 	position: fixed; top: 1vmin; right: 1vmin;
 	border: 2px solid white; border-radius: 50%;
+}
+
+input, input:active {
+	outline: 0 none !important;
+}
+.ui-focus, .ui-input-text.ui-focus {
+	-webkit-box-shadow: none !important;
+	box-shadow: none !important;
 }
 
 @media screen and (orientation: landscape) {

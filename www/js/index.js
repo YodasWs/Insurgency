@@ -2,20 +2,10 @@
 window.onerror = function(error) { console.log(error); };
 if (device.platform == 'Chrome') device.platform = 'iOS';
 
-function sendLogin(callback) {
-	var username = prompt('Username');
-	var password = prompt('Password');
-	if (username && password) $.ajax('http://yodas.ws/fps/user', {
-		password:password,username:username,statusCode:{
-			200:function() { if (typeof callback === 'function') callback(); },
-			401:function() { sendLogin(callback); },
-			418:function() { alert('error'); }
-		}
-	}); else console.log('not logged in');
-}
-
 function switchSection(newSection, oldSection) {
-	if (typeof oldSection === 'string')
+	if (!oldSection)
+		oldSection = $('section[data-role="content"]:visible').first();
+	else if (typeof oldSection === 'string')
 		oldSection = $(oldSection);
 //	if (oldSection.closest('article').is('#home')) // For phones with back buttons
 //		history.pushState({page:$this.attr('href')}, null, $this.attr('href').substring(1));
@@ -25,6 +15,25 @@ function switchSection(newSection, oldSection) {
 		newSection = $('section' + newSection);
 	else if (typeof newSection !== 'object' || typeof newSection.closest !== 'function' || newSection.closest('article').attr('id') != 'home')
 		return false;
+
+	// Move to Same Section ?
+	if (oldSection.attr('id') == newSection.attr('id')) {
+		switch(device.platform) {
+		case 'WinCE': case 'Win32NT':
+			break;
+		case 'iOS': case 'Android':
+			oldSection.animate({
+				opacity:0
+			}, 'fast', function() {
+				oldSection.animate({
+					opacity:1
+				}, 'slow').find('input[type="password"]').val('');
+			});
+			break;
+		}
+		return false;
+	}
+
 	// Slide to New Section
 //	switch(device.platform) {
 //	case 'iOS': case 'Android':
@@ -86,6 +95,32 @@ alert(JSON.stringify(data));
 	case 'WinCE': case 'Win32NT':
 		break;
 	}
+		return false;
+	});
+
+	var sendLogin = function(callback) {
+		var password = $('#login form input[name="password"]').val();
+		var username = $('#login form input[name="username"]').val();
+		if (username && password) $.ajax('http://yodas.ws/fps/user', {
+			password:password,username:username,statusCode:{
+				200:function() { if (typeof callback === 'function') callback(); },
+				401:function() {
+					alert('error 401');
+					switchSection('#login');
+//					sendLogin(callback);
+				},
+				418:function() {
+					alert('error 418');
+					switchSection('#login');
+				}
+			}
+		}); else console.log('not logged in');
+	};
+	// Login Form
+	$('#login form').submit(function() {
+		sendLogin(function() {
+			switchSection('#home');
+		});
 		return false;
 	});
 });
