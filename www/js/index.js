@@ -1,6 +1,6 @@
 ﻿// for desktop testing
 window.onerror = function(error) { console.log(error); };
-if (device.platform == 'Chrome') device.platform = 'iOS';
+if (device.platform == 'Chrome') device.platform = 'Android';
 
 function switchSection(newSection, oldSection) {
 	if (!oldSection)
@@ -129,7 +129,10 @@ alert(JSON.stringify(data));
 	});
 });
 
-(function() { document.addEventListener('deviceready', function() {
+//(function() {
+$(document).ready(function() {
+document.addEventListener('deviceready', function() {
+alert('Device Ready =)');
 // Load device-specific styling
 switch(device.platform) {
 case 'WinCE': case 'Win32NT':
@@ -147,7 +150,6 @@ default:
 	break;
 }
 /*
-	alert('Device Ready =)');
 	try {
 		$.get('http://yodas.ws/fps/friends', function(data) {
 			alert(JSON.stringify(data));
@@ -157,4 +159,6 @@ default:
 	}
 
 //*/
-}, false);})();
+}, false);
+});
+//})();
