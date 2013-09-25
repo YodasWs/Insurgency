@@ -10,7 +10,7 @@
 <script src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
 <script src="http://code.jquery.com/mobile/1.3.2/jquery.mobile-1.3.2.min.js"></script>
 <script>
-if (!cordova || !PhoneGap || !phonegap) // Shim for browser testing
+if (!window.cordova && !window.PhoneGap && !window.phonegap) // Shim for browser testing
 	document.write('<script type="text/javascript" src="res/phonegap.js"><\/script>');
 </script>
 <script src="js/index.js"></script>
