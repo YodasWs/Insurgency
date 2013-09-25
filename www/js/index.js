@@ -102,8 +102,12 @@ alert(JSON.stringify(data));
 		var password = $('#login form input[name="password"]').val();
 		var username = $('#login form input[name="username"]').val();
 		if (username && password) $.ajax('http://yodas.ws/fps/user', {
-			password:password,username:username,statusCode:{
-				200:function() { if (typeof callback === 'function') callback(); },
+			data: { password:password, username:username },
+			type:'POST',crossDomain:true,dataType:'jsonp',
+			statusCode:{
+				200:function(data) {
+					if (typeof callback === 'function') callback();
+				},
 				401:function() {
 					alert('error 401');
 					switchSection('#login');

@@ -7,13 +7,18 @@
 <author href="http://yodas.ws" email="samuel@yodas.ws">Samuel B Grundman</author>
 
 <preference name="orientation" value="default"/>
+<!--
 <preference name="fullscreen" value="true"/>
+-->
 
 <feature name="http://api.phonegap.com/1.0/geolocation"/>
 <feature name="http://api.phonegap.com/1.0/device" />
 <!--
 <feature name="http://api.phonegap.com/1.0/camera"/>
 -->
+
+<gap:platform name="android"/>
+<gap:platform name="winphone"/>
 
 <access origin="http://yodas.ws" />
 <access origin="http://code.jquery.com"/>

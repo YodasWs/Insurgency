@@ -1,7 +1,6 @@
 ﻿<?php
 header('Access-Control-Allow-Origin: *');
 header('Content-type: application/json');
-define('Realm','FPS');
 
 // Require User Authentication
 function throw401() {
@@ -12,7 +11,6 @@ function throw401() {
 	));
 	exit;
 }
-if (!isset($_SERVER['PHP_AUTH_DIGEST'])) throw401();
 
 // function to parse the http auth header, http://php.net/manual/en/features.http-auth.php
 function http_digest_parse($txt) {
@@ -39,15 +37,26 @@ function throw418() {
 	));
 	exit;
 }
+require_once('users.php');
+echo json_encode($_REQUEST); exit;
 
 // Login
-if (!($data = http_digest_parse($_SERVER['PHP_AUTH_DIGEST']))) throw418();
-require_once('users.php');
-if (!Users::authorized($data['username'])) throw418();
-$a1 = md5($data['username'] . ':' . Realm . ':' . Users::getPassword($data['username']));
-$a2 = md5($_SERVER['REQUEST_METHOD'] . ':' . $data['uri']);
-$valid_response = md5("$a1:{$data['nonce']}:{$data['nc']}:{$data['cnonce']}:{$data['qop']}:$a2");
-if ($data['response'] != $valid_response) throw401();
+/*
+if (strpos($_SERVER['HTTP_USER_AGENT'], 'Chrome') !== false) {
+	if (!isset($_SERVER['PHP_AUTH_DIGEST'])) throw401();
+	if (!($data = http_digest_parse($_SERVER['PHP_AUTH_DIGEST']))) throw418();
+	if (!Users::authorized($data['username'])) throw418();
+	$a1 = md5($data['username'] . ':' . Realm . ':' . Users::getPassword($data['username']));
+	$a2 = md5($_SERVER['REQUEST_METHOD'] . ':' . $data['uri']);
+	$valid_response = md5("$a1:{$data['nonce']}:{$data['nc']}:{$data['cnonce']}:{$data['qop']}:$a2");
+	if ($data['response'] != $valid_response) throw401();
+} else /**/ if (!empty($_POST)) {
+	if (!Users::authorized($_POST['username'])) throw418();
+	if ($_POST['password'] != Users::getPassword($_POST['username'])) throw418();
+	$_SESSION['authFPS'] = uniqid(rand(100,999));
+} else if (empty($_SESSION['authFPS'])) throw418();
+
+# preg_match("'/v[1-9]\d*(\.\d+)?/'", $url, $matches); // to grab and redirect to a specific version of the API
 
 $url = $_SERVER['HTTP_X_REWRITE_URL'];
 $url = substr($url, 4); // remove the temporary '/fps' directory
@@ -71,7 +80,6 @@ if ($url == '/friends') {
 	}
 	exit;
 }
-# preg_match("'/v[1-9]\d*(\.\d+)?/'", $url, $matches); // to grab and redirect to a specific version of the API
 header('Content-type: text/html', true);
 ?>
 <h1>Hello World</h1>
