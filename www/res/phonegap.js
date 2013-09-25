@@ -38,12 +38,10 @@ console.log('userAgent: ' + navigator.userAgent);
 console.log('device: ' + JSON.stringify(device));
 
 // geolocation,
-http://docs.phonegap.com/en/3.0.0/cordova_geolocation_geolocation.md.html#Geolocation
-if (!window.geolocation) {
-	var geolocation = {};
-	if (navigator.geolocation)
-		geolocation = navigator.geolocation;
-	else geolocation = {
+http://docs.phonegap.com/en/2.9.0/cordova_geolocation_geolocation.md.html#Geolocation
+if (!navigator) var navigator = {};
+if (!navigator.geolocation) {
+	navigator.geolocation = {
 		getCurrentPosition:function(success,error,options) {
 			if (typeof error === 'function')
 				error({code:1,message:'Position Unavailable on this device'});
@@ -56,7 +54,7 @@ if (!window.geolocation) {
 		clearPosition:function(){}
 	};
 }
-geolocation.getCurrentPosition(function(position) {
+navigator.geolocation.getCurrentPosition(function(position) {
 	console.log('geolocation: ' + position.latitude + ', ' + position.longitude);
 }, function(error) {
 	console.log('geolocation: ' + error.message);
