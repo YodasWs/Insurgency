@@ -128,7 +128,9 @@ alert(JSON.stringify(data));
 		return false;
 	});
 });
+alert(JSON.stringify(device));
 
+/*
 //(function() {
 $(document).ready(function() {
 document.addEventListener('deviceready', function() {
@@ -159,6 +161,6 @@ default:
 	}
 
 //*/
-}, false);
-});
+//}, false);
+//});
 //})();
