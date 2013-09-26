@@ -1,4 +1,6 @@
-﻿// for desktop testing
+﻿document.write("<script>alert('hi');<\/script>");
+
+// for desktop testing
 window.onerror = function(error) { console.log(error); };
 if (device.platform == 'Chrome') device.platform = 'Android';
 
