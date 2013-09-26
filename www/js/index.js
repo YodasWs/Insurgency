@@ -1,12 +1,12 @@
 ﻿document.write("<script>alert('hi');<\/script>");
 
-// for desktop testing
-window.onerror = function(error) { console.log(error); };
-if (device.platform == 'Chrome') device.platform = 'Android';
-
 document.addEventListener('deviceready', function() {
 	alert(JSON.stringify(device));
 }, false);
+/*
+// for desktop testing
+window.onerror = function(error) { console.log(error); };
+if (device.platform == 'Chrome') device.platform = 'Android';
 
 function switchSection(newSection, oldSection) {
 	if (!oldSection)
