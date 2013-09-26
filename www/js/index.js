@@ -2,6 +2,10 @@
 window.onerror = function(error) { console.log(error); };
 if (device.platform == 'Chrome') device.platform = 'Android';
 
+document.addEventListener('deviceready', function() {
+	alert(JSON.stringify(device));
+}, false);
+
 function switchSection(newSection, oldSection) {
 	if (!oldSection)
 		oldSection = $('section[data-role="content"]:visible').first();
@@ -128,7 +132,6 @@ alert(JSON.stringify(data));
 		return false;
 	});
 });
-alert(JSON.stringify(device));
 
 /*
 //(function() {
