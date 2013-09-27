@@ -1,13 +1,12 @@
-﻿document.write("<script>alert('hi');<\/script>");
-
-document.addEventListener('deviceready', function() {
-	alert(JSON.stringify(device));
+﻿document.addEventListener('deviceready', function() {
+	// Login Form
+	$('#login form').submit(function() {
+		alert('Login!');
+		return false;
+	});
 }, false);
-/*
-// for desktop testing
-window.onerror = function(error) { console.log(error); };
-if (device.platform == 'Chrome') device.platform = 'Android';
 
+/*
 function switchSection(newSection, oldSection) {
 	if (!oldSection)
 		oldSection = $('section[data-role="content"]:visible').first();
