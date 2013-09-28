@@ -1,7 +1,7 @@
 ﻿document.addEventListener('deviceready', function() {
 	alert('deviceready');
 	// Login Form
-	$('#login form').submit(function() {
+	zepto('#login form').submit(function() {
 		alert('Login!');
 		return false;
 	});
@@ -10,9 +10,9 @@
 /*
 function switchSection(newSection, oldSection) {
 	if (!oldSection)
-		oldSection = $('section[data-role="content"]:visible').first();
+		oldSection = zepto('section[data-role="content"]:visible').first();
 	else if (typeof oldSection === 'string')
-		oldSection = $(oldSection);
+		oldSection = zepto(oldSection);
 //	if (oldSection.closest('article').is('#home')) // For phones with back buttons
 //		history.pushState({page:$this.attr('href')}, null, $this.attr('href').substring(1));
 	if (typeof newSection === 'string' && newSection == '#home')
