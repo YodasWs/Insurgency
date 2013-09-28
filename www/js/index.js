@@ -1,4 +1,5 @@
 ﻿document.addEventListener('deviceready', function() {
+	alert('deviceready');
 	// Login Form
 	$('#login form').submit(function() {
 		alert('Login!');
