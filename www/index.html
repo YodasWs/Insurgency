@@ -5,26 +5,20 @@
 <meta charset="UTF-8"/>
 <meta name="format-detection" content="telephone=no"/>
 <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, height=device-height, target-densitydpi=device-dpi" />
+<link rel="stylesheet" href="res/bootstrap.min.css" />
 <link rel="stylesheet" href="css/index.css" />
 <script src="res/zepto.min.js"></script>
 <script src="phonegap.js"></script>
 <script>
-if (!window.cordova && !window.PhoneGap && !window.phonegap) {
-	// Shim for browser testing
+if (!window.cordova && !window.PhoneGap && !window.phonegap) // Shim for browser testing
 	document.write('<script type="text/javascript" src="res/phonegap.js"><\/script>');
-	// for desktop testing
-	window.onerror = function(error) { console.log(error); };
-	if (device.platform == 'Chrome') device.platform = 'Android';
-	else if (device.platform.indexOf('Win') > -1) device.platform = 'Win32NT';
-	else if (device.platform.indexOf('Safari') > -1) device.platform = 'iOS';
-}
 </script>
 <script src="js/index.js"></script>
 </head>
 <body>
-<article data-role="page" id="home">
-	<section data-role="content">
-		<header data-role="header">
+<article id="home">
+	<section>
+		<header>
 			<h1>Insurgency</h1>
 		</header>
 		<div data-role="controlgroup">
@@ -33,13 +27,13 @@ if (!window.cordova && !window.PhoneGap && !window.phonegap) {
 			<a href="#about" data-role="button">About</a>
 		</div>
 	</section>
-	<section data-role="content" id="about">
-		<header data-role="header">
+	<section id="about">
+		<header>
 			<h1>About</h1>
 		</header>
 	</section>
-	<section data-role="content" id="login">
-		<header data-role="header">
+	<section id="login">
+		<header>
 			<h1>Login</h1>
 		</header>
 		<form data-role="fieldcontain">
@@ -49,8 +43,8 @@ if (!window.cordova && !window.PhoneGap && !window.phonegap) {
 		</form>
 		<a href="#signup">Sign Up</a>
 	</section>
-	<section data-role="content" id="signup">
-		<header data-role="header">
+	<section id="signup">
+		<header>
 			<h1>Signup</h1>
 		</header>
 		<form data-role="fieldcontain">
@@ -59,14 +53,6 @@ if (!window.cordova && !window.PhoneGap && !window.phonegap) {
 			<label><input type="password" name="confrmPW" /></label>
 			<input type="submit" value="Signup" />
 		</form>
-	</section>
-</article>
-<article data-theme="a" data-role="page" id="mission">
-	<section data-role="content">
-		<header data-role="header">
-			<h1>Good Luck</h1>
-		</header>
-		<div id="radar"></div>
 	</section>
 </article>
 </body>

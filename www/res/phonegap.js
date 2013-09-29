@@ -68,6 +68,12 @@ camera = {
 	}
 };
 
+// for desktop testing
+window.onerror = function(error) { console.log(error); };
+if (device.platform == 'Chrome') device.platform = 'Android';
+else if (device.platform.indexOf('Win') > -1) device.platform = 'Win32NT';
+else if (device.platform.indexOf('Safari') > -1) device.platform = 'iOS';
+
 // Augmented Reality: http://phonegap.com/blog/2012/10/09/wikitude-provides-users-with-augmented-reality-plugin/
 
 // For Android Development: http://phonegap-pain-points.appspot.com/#/

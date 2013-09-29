@@ -1,27 +1,54 @@
 ﻿document.addEventListener('deviceready', function() {
-	alert('deviceready');
+	Zepto('input[type="submit"]').addClass('btn').addClass('btn-default');
 	// Login Form
-	zepto('#login form').submit(function() {
+	Zepto('#login form').submit(function() {
 		alert('Login!');
+		return false;
+	});
+	// TODO: Change Section
+	Zepto('a[href^="#"]').click(function() {
+//		$this = Zepto(this);
+//		if (Zepto(Zepto(this).attr('href')).closest('article').is(':visible'))
+			return switchSection(Zepto(this).attr('href'), Zepto(this).closest('section'));
+/*
+		if ($(this).attr('href') == '#mission') {
+			$.get('http://yodas.ws/fps/user', {
+			}, function(data) {
+alert(JSON.stringify(data));
+				if (data.error) {
+					return;
+				}
+			}, 'json');
+		}
+		switch(device.platform) {
+		case 'iOS': case 'Android':
+			$('article:visible').fadeOut('slow', function() {
+				$($this.attr('href')).fadeIn('slow');
+			});
+			break;
+		case 'WinCE': case 'Win32NT':
+			break;
+		}
+//*/
 		return false;
 	});
 }, false);
 
-/*
 function switchSection(newSection, oldSection) {
 	if (!oldSection)
-		oldSection = zepto('section[data-role="content"]:visible').first();
+		oldSection = Zepto('section').filter(function() {
+			return Zepto(this).css('display') != 'none';
+		});
 	else if (typeof oldSection === 'string')
-		oldSection = zepto(oldSection);
+		oldSection = Zepto(oldSection);
 //	if (oldSection.closest('article').is('#home')) // For phones with back buttons
 //		history.pushState({page:$this.attr('href')}, null, $this.attr('href').substring(1));
 	if (typeof newSection === 'string' && newSection == '#home')
-		newSection = $('#home > section[data-role="content"]:first');
+		newSection = $('#home > section').first();
 	else if (typeof newSection === 'string')
-		newSection = $('section' + newSection);
+		newSection = $(newSection);
 	else if (typeof newSection !== 'object' || typeof newSection.closest !== 'function' || newSection.closest('article').attr('id') != 'home')
 		return false;
-
 	// Move to Same Section ?
 	if (oldSection.attr('id') == newSection.attr('id')) {
 		switch(device.platform) {
@@ -41,15 +68,15 @@ function switchSection(newSection, oldSection) {
 	}
 
 	// Slide to New Section
-//	switch(device.platform) {
-//	case 'iOS': case 'Android':
+	switch(device.platform) {
+	case 'iOS': case 'Android':
+		$('body').css('overflow','hidden');
 		oldSection.css({
 			position:'absolute',top:oldSection.offset().top+'px'
 		});
 		newSection.css({
 			position:'absolute',top:$(window).height()+'px'
 		}).show();
-		$('body').css('overflow','hidden');
 		oldSection.animate({
 			top:'-'+$(window).height()+'px'
 		}, 'slow', function() {
@@ -62,13 +89,14 @@ function switchSection(newSection, oldSection) {
 			oldSection.hide();
 			$('body').css({overflow:''});
 		});
-//		break;
+		break;
 //	case 'WinCE': case 'Win32NT':
 //		break;
-//	}
+	}
 	return false;
 }
 
+/*
 $(document).ready(function() {
 	// TODO: Add iOS Back Button to Headers :-\
 	if (device.platform == 'iOS') {
@@ -77,32 +105,6 @@ $(document).ready(function() {
 		);
 		$('article#home > section[data-role="content"]:not(:nth-child(1)) a[data-role="button"]').buttonMarkup('refresh');
 	}
-
-	// TODO: Change "Page"
-	$('a[href^="#"]').click(function() {
-		$this = $(this);
-	if ($($(this).attr('href')).closest('article').is(':visible'))
-		return switchSection($(this).attr('href'), $(this).closest('section'));
-	if ($(this).attr('href') == '#mission') {
-		$.get('http://yodas.ws/fps/user', {
-		}, function(data) {
-alert(JSON.stringify(data));
-			if (data.error) {
-				return;
-			}
-		}, 'json');
-	}
-	switch(device.platform) {
-	case 'iOS': case 'Android':
-		$('article:visible').fadeOut('slow', function() {
-			$($this.attr('href')).fadeIn('slow');
-		});
-		break;
-	case 'WinCE': case 'Win32NT':
-		break;
-	}
-		return false;
-	});
 
 	var sendLogin = function(callback) {
 		var password = $('#login form input[name="password"]').val();
