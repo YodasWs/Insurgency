@@ -44,9 +44,9 @@ function switchSection(newSection, oldSection) {
 //	if (oldSection.closest('article').is('#home')) // For phones with back buttons
 //		history.pushState({page:$this.attr('href')}, null, $this.attr('href').substring(1));
 	if (typeof newSection === 'string' && newSection == '#home')
-		newSection = $('#home > section').first();
+		newSection = Zepto('#home > section').first();
 	else if (typeof newSection === 'string')
-		newSection = $(newSection);
+		newSection = Zepto(newSection);
 	else if (typeof newSection !== 'object' || typeof newSection.closest !== 'function' || newSection.closest('article').attr('id') != 'home')
 		return false;
 	// Move to Same Section ?
@@ -70,24 +70,24 @@ function switchSection(newSection, oldSection) {
 	// Slide to New Section
 	switch(device.platform) {
 	case 'iOS': case 'Android':
-		$('body').css('overflow','hidden');
+		Zepto('body').css('overflow','hidden');
 		oldSection.css({
 			position:'absolute',top:oldSection.offset().top+'px'
 		});
 		newSection.css({
-			position:'absolute',top:$(window).height()+'px'
+			position:'absolute',top:Zepto(window).height()+'px'
 		}).show();
 		oldSection.animate({
-			top:'-'+$(window).height()+'px'
+			top:'-'+Zepto(window).height()+'px'
 		}, 'slow', function() {
-			$(this).hide();
+			Zepto(this).hide();
 		});
 		newSection.animate({
 			top:'0px'
 		}, 'slow', function() {
-			$(this).css({position:''});
+			Zepto(this).css({position:''});
 			oldSection.hide();
-			$('body').css({overflow:''});
+			Zepto('body').css({overflow:''});
 		});
 		break;
 //	case 'WinCE': case 'Win32NT':
