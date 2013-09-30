@@ -1,8 +1,30 @@
 ﻿/* Styles for Android devices */
-article[data-role="page"] > section[data-role="content"]:not(:nth-child(1)) {
+article > section:not(:nth-child(1)) {
 	display: none;
 }
 
-section#login form[data-role="fieldcontain"] {
+section#login form {
 	text-align: center;
+}
+
+section > header {
+	padding: 5px 0; margin: 0; width: 100%; text-align: center; background: dimgrey; color: whitesmoke;
+}
+section > header > h1 {
+	margin: 0;
+}
+
+@media (min-device-width: 700px) {
+	.btn-group-vertical {
+		display: block; width: 80%; margin: 1em auto;
+	}
+	.btn {
+		border-radius: 10px;
+	}
+	.btn-group-vertical > .btn:first-child:not(:last-child) {
+		border-top-right-radius: 10px;
+	}
+	.btn-group-vertical > .btn:last-child:not(:first-child) {
+		border-bottom-left-radius: 10px;
+	}
 }

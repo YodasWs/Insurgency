@@ -1,11 +1,31 @@
 ﻿document.addEventListener('deviceready', function() {
+	// Load device-specific styling
+	switch(device.platform) {
+	case 'WinCE': case 'Win32NT':
+		Zepto('link').first().after('<link rel="stylesheet" href="css/windowsphone.css"/>');
+		break;
+	case 'iOS':
+//		Zepto('a[data-role="button"][data-icon="back"]').attr('data-theme', 'b').buttonMarkup('refresh');
+		Zepto('link').last().after('<link rel="stylesheet" href="css/ios.css"/>');
+		Zepto('link').first().before('<link rel="stylesheet" href="http://code.jquery.com/mobile/1.3.2/jquery.mobile-1.3.2.min.css"/>');
+		break;
+	case 'Android':
+	default:
+		Zepto('link').last().after('<link rel="stylesheet" href="css/android.css"/>');
+		Zepto('link').first().before('<link rel="stylesheet" href="http://code.jquery.com/mobile/1.3.2/jquery.mobile-1.3.2.min.css"/>');
+		break;
+	}
+
+	// Add Cross-Device Bootstrap Styling
 	Zepto('input[type="submit"]').addClass('btn').addClass('btn-default');
+
 	// Login Form
 	Zepto('#login form').submit(function() {
 		alert('Login!');
 		return false;
 	});
-	// TODO: Change Section
+
+	// Change Section
 	Zepto('a[href^="#"]').click(function() {
 //		$this = Zepto(this);
 //		if (Zepto(Zepto(this).attr('href')).closest('article').is(':visible'))
@@ -57,7 +77,7 @@ function switchSection(newSection, oldSection) {
 		case 'iOS': case 'Android':
 			oldSection.animate({
 				opacity:0
-			}, 'fast', function() {
+			}, 'fast', 'ease', function() {
 				oldSection.animate({
 					opacity:1
 				}, 'slow').find('input[type="password"]').val('');
@@ -70,24 +90,26 @@ function switchSection(newSection, oldSection) {
 	// Slide to New Section
 	switch(device.platform) {
 	case 'iOS': case 'Android':
-		Zepto('body').css('overflow','hidden');
+		Zepto('body').css({
+			overflow:'hidden',height:Zepto('window').height()
+		});
 		oldSection.css({
-			position:'absolute',top:oldSection.offset().top+'px'
+			position:'absolute',top:oldSection.offset().top+'px',width:'100%'
 		});
 		newSection.css({
-			position:'absolute',top:Zepto(window).height()+'px'
+			position:'absolute',top:Zepto(window).height()+'px',width:'100%'
 		}).show();
 		oldSection.animate({
 			top:'-'+Zepto(window).height()+'px'
-		}, 'slow', function() {
+		}, 'slow', 'ease', function() {
 			Zepto(this).hide();
 		});
 		newSection.animate({
 			top:'0px'
-		}, 'slow', function() {
+		}, 'slow', 'ease', function() {
 			Zepto(this).css({position:''});
 			oldSection.hide();
-			Zepto('body').css({overflow:''});
+			Zepto('body').css({overflow:'auto',height:'auto'});
 		});
 		break;
 //	case 'WinCE': case 'Win32NT':
@@ -142,22 +164,6 @@ $(document).ready(function() {
 $(document).ready(function() {
 document.addEventListener('deviceready', function() {
 alert('Device Ready =)');
-// Load device-specific styling
-switch(device.platform) {
-case 'WinCE': case 'Win32NT':
-	$('link').first().after('<link rel="stylesheet" href="css/windowsphone.css"/>');
-	break;
-case 'iOS':
-	$('a[data-role="button"][data-icon="back"]').attr('data-theme', 'b').buttonMarkup('refresh');
-	$('link').last().after('<link rel="stylesheet" href="css/ios.css"/>');
-	$('link').first().before('<link rel="stylesheet" href="http://code.jquery.com/mobile/1.3.2/jquery.mobile-1.3.2.min.css"/>');
-	break;
-case 'Android':
-default:
-	$('link').last().after('<link rel="stylesheet" href="css/android.css"/>');
-	$('link').first().before('<link rel="stylesheet" href="http://code.jquery.com/mobile/1.3.2/jquery.mobile-1.3.2.min.css"/>');
-	break;
-}
 /*
 	try {
 		$.get('http://yodas.ws/fps/friends', function(data) {
