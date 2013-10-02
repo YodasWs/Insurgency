@@ -51,8 +51,7 @@
 			data: { password:password, username:username },
 			type:'POST',dataType:'json',
 			complete:function(xhr) {
-//				var data = xhr.response;
-alert(xhr.response);
+window.location = 'homebase.html';
 return;
 				switch (xhr.status) {
 				case 200:
