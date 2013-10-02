@@ -11,6 +11,13 @@ body {
 section:not(:first-of-type) {
 	display: none;
 }
+p {
+	text-align: justify; width: 80%; margin: 1em auto; text-indent: 10%;
+}
+section > header > a:first-child {
+	float: left; display: block; height: 3em; line-height: 3em; margin-left: 5px;
+	-webkit-block-sizing: border-box; -moz-block-sizing: border-box; block-sizing: border-box;
+}
 
 /*
 div#radar {

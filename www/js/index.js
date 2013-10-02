@@ -5,7 +5,6 @@
 		Zepto('link').first().after('<link rel="stylesheet" href="css/windowsphone.css"/>');
 		break;
 	case 'iOS':
-//		Zepto('a[data-role="button"][data-icon="back"]').attr('data-theme', 'b').buttonMarkup('refresh');
 		Zepto('link').last().after('<link rel="stylesheet" href="css/ios.css"/>');
 		Zepto('link').first().before('<link rel="stylesheet" href="http://code.jquery.com/mobile/1.3.2/jquery.mobile-1.3.2.min.css"/>');
 		break;
@@ -16,40 +15,65 @@
 		break;
 	}
 
+	// Add Back Button to Home
+	switch(device.platform) {
+	case 'Android':
+	case 'iOS':
+		Zepto('section:not(:first-of-type) > header').prepend('<a href="#home">Back</a>');
+		if (device.platform == 'Android')
+			Zepto('section > header > a:first-child').addClass('glyphicon').addClass('glyphicon-chevron-left');
+		break;
+	}
+
 	// Add Cross-Device Bootstrap Styling
 	Zepto('input[type="submit"]').addClass('btn').addClass('btn-default');
 
 	// Login Form
+/*
 	Zepto('#login form').submit(function() {
 		alert('Login!');
 		return false;
 	});
+//*/
 
 	// Change Section
 	Zepto('a[href^="#"]').click(function() {
-//		$this = Zepto(this);
-//		if (Zepto(Zepto(this).attr('href')).closest('article').is(':visible'))
-			return switchSection(Zepto(this).attr('href'), Zepto(this).closest('section'));
-/*
-		if ($(this).attr('href') == '#mission') {
-			$.get('http://yodas.ws/fps/user', {
-			}, function(data) {
-alert(JSON.stringify(data));
-				if (data.error) {
-					return;
+		switchSection(Zepto(this).attr('href'), Zepto(this).closest('section'));
+		return false;
+	});
+
+	// Login Form
+	Zepto('#login form').submit(function() {
+		var password = Zepto('#login form input[name="password"]').val();
+		var username = Zepto('#login form input[name="username"]').val();
+		if (username && password) Zepto.ajax({
+			url: 'http://yodas.ws/fps/user',
+			data: { password:password, username:username },
+			type:'POST',dataType:'json',
+			complete:function(xhr) {
+//				var data = xhr.response;
+alert(xhr.response);
+return;
+				switch (xhr.status) {
+				case 200:
+					switchSection('#home');
+					break;
+				case 401:
+					alert('error 401');
+					switchSection('#login');
+//					sendLogin(callback);
+					break;
+				case 418:
+					alert('error 418');
+					switchSection('#login');
+					break;
+				default:
+					alert('error ' + xhr.status);
+					switchSection('#login');
+					break;
 				}
-			}, 'json');
-		}
-		switch(device.platform) {
-		case 'iOS': case 'Android':
-			$('article:visible').fadeOut('slow', function() {
-				$($this.attr('href')).fadeIn('slow');
-			});
-			break;
-		case 'WinCE': case 'Win32NT':
-			break;
-		}
-//*/
+			}
+		}); else console.log('not logged in');
 		return false;
 	});
 }, false);
@@ -88,8 +112,10 @@ function switchSection(newSection, oldSection) {
 	}
 
 	// Slide to New Section
+	var direction = newSection.is(':first-of-type') ? 1 : -1;
 	switch(device.platform) {
-	case 'iOS': case 'Android':
+	case 'Android':
+	case 'iOS':
 		Zepto('body').css({
 			overflow:'hidden',height:Zepto('window').height()
 		});
@@ -97,10 +123,10 @@ function switchSection(newSection, oldSection) {
 			position:'absolute',top:oldSection.offset().top+'px',width:'100%'
 		});
 		newSection.css({
-			position:'absolute',top:Zepto(window).height()+'px',width:'100%'
+			position:'absolute',top:-1*direction*Zepto(window).height()+'px',width:'100%'
 		}).show();
 		oldSection.animate({
-			top:'-'+Zepto(window).height()+'px'
+			top:direction*Zepto(window).height()+'px'
 		}, 'slow', 'ease', function() {
 			Zepto(this).hide();
 		});
@@ -112,68 +138,15 @@ function switchSection(newSection, oldSection) {
 			Zepto('body').css({overflow:'auto',height:'auto'});
 		});
 		break;
-//	case 'WinCE': case 'Win32NT':
-//		break;
+	case 'Win32NT':
+	case 'WinCE':
+		break;
 	}
 	return false;
 }
 
 /*
 $(document).ready(function() {
-	// TODO: Add iOS Back Button to Headers :-\
-	if (device.platform == 'iOS') {
-		$('article#home > section[data-role="content"]:not(:nth-child(1)) > header[data-role="header"]').prepend(
-			'<a href="#home" data-role="button" data-icon="back" data-inline="true">Back</a>'
-		);
-		$('article#home > section[data-role="content"]:not(:nth-child(1)) a[data-role="button"]').buttonMarkup('refresh');
-	}
 
-	var sendLogin = function(callback) {
-		var password = $('#login form input[name="password"]').val();
-		var username = $('#login form input[name="username"]').val();
-		if (username && password) $.ajax('http://yodas.ws/fps/user', {
-			data: { password:password, username:username },
-			type:'POST',crossDomain:true,dataType:'jsonp',
-			statusCode:{
-				200:function(data) {
-					if (typeof callback === 'function') callback();
-				},
-				401:function() {
-					alert('error 401');
-					switchSection('#login');
-//					sendLogin(callback);
-				},
-				418:function() {
-					alert('error 418');
-					switchSection('#login');
-				}
-			}
-		}); else console.log('not logged in');
-	};
-	// Login Form
-	$('#login form').submit(function() {
-		sendLogin(function() {
-			switchSection('#home');
-		});
-		return false;
-	});
 });
-
-/*
-//(function() {
-$(document).ready(function() {
-document.addEventListener('deviceready', function() {
-alert('Device Ready =)');
-/*
-	try {
-		$.get('http://yodas.ws/fps/friends', function(data) {
-			alert(JSON.stringify(data));
-		}, 'json');
-	} catch(e) {
-		alert(e);
-	}
-
 //*/
-//}, false);
-//});
-//})();
