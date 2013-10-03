@@ -30,7 +30,7 @@ var device = {
 	version:(function() {
 		return (navigator.userAgent.match(/(IE|Chrome|Safari|Firefox)\/?\s*([\d\.]*)/))[2].trim();
 	})(),
-	uuid:'do-not-check',
+	uuid:'testing',
 	cordova:'sam-testing'
 };
 device.model = device.name;

@@ -1,41 +1,4 @@
 ﻿document.addEventListener('deviceready', function() {
-	// Load device-specific styling
-	switch(device.platform) {
-	case 'WinCE': case 'Win32NT':
-		Zepto('link').first().after('<link rel="stylesheet" href="css/windowsphone.css"/>');
-		break;
-	case 'iOS':
-		Zepto('link').last().after('<link rel="stylesheet" href="css/ios.css"/>');
-		Zepto('link').first().before('<link rel="stylesheet" href="http://code.jquery.com/mobile/1.3.2/jquery.mobile-1.3.2.min.css"/>');
-		break;
-	case 'Android':
-	default:
-		Zepto('link').last().after('<link rel="stylesheet" href="css/android.css"/>');
-		Zepto('link').first().before('<link rel="stylesheet" href="http://code.jquery.com/mobile/1.3.2/jquery.mobile-1.3.2.min.css"/>');
-		break;
-	}
-
-	// Add Back Button to Home
-	switch(device.platform) {
-	case 'Android':
-	case 'iOS':
-		Zepto('section:not(:first-of-type) > header').prepend('<a href="#home">Back</a>');
-		if (device.platform == 'Android')
-			Zepto('section > header > a:first-child').addClass('glyphicon').addClass('glyphicon-chevron-left');
-		break;
-	}
-
-	// Add Cross-Device Bootstrap Styling
-	Zepto('input[type="submit"]').addClass('btn').addClass('btn-default');
-
-	// Login Form
-/*
-	Zepto('#login form').submit(function() {
-		alert('Login!');
-		return false;
-	});
-//*/
-
 	// Change Section
 	Zepto('a[href^="#"]').click(function() {
 		switchSection(Zepto(this).attr('href'), Zepto(this).closest('section'));
@@ -48,7 +11,7 @@
 		var username = Zepto('#login form input[name="username"]').val();
 		if (username && password) Zepto.ajax({
 			url: 'http://yodas.ws/fps/user',
-			data: { password:password, username:username },
+			data: { password:password, username:username, uuid:device.uuid },
 			type:'POST',dataType:'json',
 			complete:function(xhr) {
 window.location = 'homebase.html';
@@ -143,9 +106,3 @@ function switchSection(newSection, oldSection) {
 	}
 	return false;
 }
-
-/*
-$(document).ready(function() {
-
-});
-//*/

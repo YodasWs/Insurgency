@@ -7,12 +7,14 @@
 <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, height=device-height, target-densitydpi=device-dpi" />
 <link rel="stylesheet" href="res/bootstrap.min.css" />
 <link rel="stylesheet" href="css/index.css" />
+<link rel="stylesheet" href="css/app.css" />
 <script src="res/zepto.min.js"></script>
 <script src="phonegap.js"></script>
 <script>
 if (!window.cordova && !window.PhoneGap && !window.phonegap) // Shim for browser testing
 	document.write('<script type="text/javascript" src="res/phonegap.js"><\/script>');
 </script>
+<script src="js/app.js" async></script>
 <script src="js/index.js"></script>
 </head>
 <body>
@@ -50,5 +52,6 @@ if (!window.cordova && !window.PhoneGap && !window.phonegap) // Shim for browser
 		</form>
 	</section>
 </article>
+<div id="loading"><div class="f_circleG" id="frotateG_01"></div><div class="f_circleG" id="frotateG_02"></div><div class="f_circleG" id="frotateG_03"></div><div class="f_circleG" id="frotateG_04"></div><div class="f_circleG" id="frotateG_05"></div><div class="f_circleG" id="frotateG_06"></div><div class="f_circleG" id="frotateG_07"></div><div class="f_circleG" id="frotateG_08"></div></div>
 </body>
 </html>
