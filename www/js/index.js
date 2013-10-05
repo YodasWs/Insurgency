@@ -29,9 +29,9 @@
 		var password = Zepto('#login form input[name="password"]').val();
 		var username = Zepto('#login form input[name="username"]').val();
 		if (username && password) Zepto.ajax({
-			url: 'http://yodas.ws/fps/user',
-			data: { password:password, username:username, uuid:device.uuid },
-			type:'POST',dataType:'json',
+			url: 'http://yodas.ws/fps/user', type:'POST', dataType:'text',
+			data: { password:password, username:username },
+//			headers: {'Origin':'mobile:'+device.uuid},
 			complete:function(xhr) {
 alert(xhr.response);
 //window.location = 'homebase.html';
@@ -60,8 +60,8 @@ alert(xhr.response);
 	});
 
 	Zepto.ajax({
-		url: 'http://yodas.ws/fps/user', data: { uuid:device.uuid },
-		type:'POST',dataType:'json',
+		url: 'http://yodas.ws/fps/user',
+		type:'GET', dataType:'json', headers:{'Origin':'mobile:'+device.uuid},
 		complete:function(xhr) {
 			switch (xhr.status) {
 			case 200:

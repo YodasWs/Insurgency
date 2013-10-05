@@ -6,9 +6,18 @@ parse_str(file_get_contents('php://input'), $_POST);
 // Require User Authentication
 function throw401() {
 	header('HTTP/1.1 401 Unauthorized');
-	header('WWW-Authenticate: Digest realm="'.Realm.'",qop="auth",nonce="'.uniqid().'",opaque="'.md5(Realm).'"');
+	header('WWW-Authenticate: Digest realm="Realm",qop="auth",nonce="'.uniqid().'",opaque="'.md5('Realm').'"');
 	echo json_encode(array(
 		'error' => 'Authorized Users Only',
+	));
+	exit;
+}
+
+// For Unauthorized Users
+function throw418() {
+	header('HTTP/1.1 418 I\'m a teapot');
+	echo json_encode(array(
+		'error' => 'No coffee here',
 	));
 	exit;
 }
@@ -30,14 +39,9 @@ function http_digest_parse($txt) {
 	return $needed_parts ? false : $data;
 }
 
-// For Unauthorized Users
-function throw418() {
-	header('HTTP/1.1 418 I\'m a teapot');
-	echo json_encode(array(
-		'error' => 'No coffee here',
-	));
-	exit;
-}
+#if (strpos($_SERVER['HTTP_ORIGIN'], 'mobile:') !== 0) throw418();
+#header("Access-Control-Allow-Origin: {$_SERVER['HTTP_ORIGIN']}");
+
 require_once('users.php');
 
 // Login
@@ -50,13 +54,23 @@ if (strpos($_SERVER['HTTP_USER_AGENT'], 'Chrome') !== false) {
 	$a2 = md5($_SERVER['REQUEST_METHOD'] . ':' . $data['uri']);
 	$valid_response = md5("$a1:{$data['nonce']}:{$data['nc']}:{$data['cnonce']}:{$data['qop']}:$a2");
 	if ($data['response'] != $valid_response) throw401();
-} else /**/ if (!empty($_POST)) {
-	if (!Users::joined($_POST['uuid'])) {
+} else /**/
+/*
+if (Users::joined($_SERVER['HTTP_ORIGIN'])) {
+	header('HTTP/1.1 200 OK');
+	echo json_encode(array('username' => Users::joined($_SERVER['HTTP_ORIGIN'])));
+	exit;
+} else /**/
+if (!empty($_POST)) {
+#	if (!Users::joined($_POST['uuid'])) {
 		if (!Users::authorized($_POST['username'])) throw418();
 		if ($_POST['password'] != Users::getPassword($_POST['username'])) throw418();
-	}
+#	}
 	$_SESSION['authFPS'] = uniqid(rand(100,999));
 } else if (empty($_SESSION['authFPS'])) throw418();
+
+echo json_encode(array('success' => 'Welcome!'));
+exit;
 
 # preg_match("'/v[1-9]\d*(\.\d+)?/'", $url, $matches); // to grab and redirect to a specific version of the API
 
