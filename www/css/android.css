@@ -4,10 +4,7 @@ article > section:not(:nth-child(1)) {
 
 }
 
-section#signup form,
-section#login form {
-	text-align: center;
-}
+section#signup form, section#login form { text-align: center; }
 
 /* App Header */
 body {padding-top:4em;}
@@ -15,10 +12,14 @@ section > header {
 	position: fixed; top: 0;
 	padding: 5px 0; margin: 0; width: 100%; text-align: left; background: dimgrey; color: whitesmoke;
 }
-section > header > h1 {margin: 0 5%;}
+section > header > h1 {
+	display: inline; vertical-align: middle; margin-left: 5%;
+}
 section > header > a:first-child {
-	float: left; display: block; height: 3em; line-height: 3em; margin: 0 5px;
-	-webkit-block-sizing: border-box; -moz-block-sizing: border-box; block-sizing: border-box;
+	display: inline-block !important; vertical-align: middle; border-radius: 0; line-height: 3em; padding-right: 5px;
+}
+section > header > a:first-child + h1 {
+	margin-left: 2px;
 }
 
 @media (min-device-width: 700px) {

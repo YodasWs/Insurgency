@@ -1,4 +1,6 @@
-﻿p {
+﻿article, section { display: none; }
+
+p {
 	text-align: justify; width: 80%; margin: 1em auto; text-indent: 10%;
 }
 
@@ -13,10 +15,10 @@ div#radar {
 input, input:active {
 	outline: 0 none !important;
 }
-.ui-focus, .ui-input-text.ui-focus {
-	-webkit-box-shadow: none !important;
-	box-shadow: none !important;
-}
 
 @media screen and (orientation: landscape) {
+}
+
+@media (min-device-width: 700px) {
+label { display: block; }
 }

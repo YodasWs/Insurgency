@@ -13,20 +13,6 @@
 		break;
 	}
 
-	// Add Back Button to Home
-	switch(device.platform) {
-	case 'Android':
-	case 'iOS':
-		Zepto('section:not(:first-of-type) > header').prepend('<a href="#home">Back</a>');
-		if (device.platform == 'Android')
-			Zepto('section > header > a:first-child').addClass('glyphicon').addClass('glyphicon-chevron-left');
-		break;
-	}
-
 	// Add Cross-Device Bootstrap Styling
 	Zepto('input[type="submit"]').addClass('btn').addClass('btn-default');
-
-	Zepto('#loading').animate({opacity:0}, 'slow', 'ease-out', function() {
-		Zepto(this).remove();
-	});
 });

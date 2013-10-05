@@ -18,39 +18,30 @@ if (!window.cordova && !window.PhoneGap && !window.phonegap) // Shim for browser
 <script src="js/index.js"></script>
 </head>
 <body>
-<article id="home">
-	<section>
-		<header>
-			<h1>Insurgency</h1>
-		</header>
-		<div class="btn-group-vertical btn-block">
-			<a href="#login" class="btn btn-default">Login</a>
-			<a href="#signup" class="btn btn-default">Sign Up</a>
-		</div>
-		<p>This will be a fun game!</p>
-	</section>
-	<section id="login">
-		<header>
-			<h1>Login</h1>
-		</header>
-		<form data-role="fieldcontain">
-			<label><input type="text" name="username" placeholder="Username" data-clear-btn="true" /></label>
-			<label><input type="password" name="password" /></label>
-			<input type="submit" value="Login" />
-		</form>
-		<a href="#signup">Sign Up</a>
-	</section>
-	<section id="signup">
-		<header>
-			<h1>Signup</h1>
-		</header>
-		<form data-role="fieldcontain">
-			<label><input type="text" name="username" placeholder="Username" data-clear-btn="true" /></label>
-			<label><input type="password" name="password" /></label>
-			<label><input type="password" name="confrmPW" /></label>
-			<input type="submit" value="Signup" />
-		</form>
-	</section>
+<article id="start">
+<section id="login">
+	<header><h1>Insurgency</h1></header>
+	<form data-role="fieldcontain">
+		<label><input type="text" name="username" placeholder="Username" data-clear-btn="true" /></label>
+		<label><input type="password" name="password" /></label>
+		<input type="submit" value="Login" class="btn btn-primary" />
+	</form>
+	<a href="#signup" class="btn btn-default">Sign Up</a>
+</section>
+<section id="signup">
+	<header><h1>Signup</h1></header>
+	<form data-role="fieldcontain">
+		<label><input type="text" name="username" placeholder="Username" data-clear-btn="true" /></label>
+		<label><input type="password" name="password" /></label>
+		<label><input type="password" name="confrmPW" /></label>
+		<input type="submit" value="Signup" />
+	</form>
+</section>
+</article>
+<article id="homebase">
+<section>
+	<header><h1>Insurgency</h1></header>
+</section>
 </article>
 <div id="loading"><div class="f_circleG" id="frotateG_01"></div><div class="f_circleG" id="frotateG_02"></div><div class="f_circleG" id="frotateG_03"></div><div class="f_circleG" id="frotateG_04"></div><div class="f_circleG" id="frotateG_05"></div><div class="f_circleG" id="frotateG_06"></div><div class="f_circleG" id="frotateG_07"></div><div class="f_circleG" id="frotateG_08"></div></div>
 </body>

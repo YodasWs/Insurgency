@@ -1,6 +1,7 @@
 ﻿<?php
 header('Access-Control-Allow-Origin: *');
 header('Content-type: application/json');
+parse_str(file_get_contents('php://input'), $_POST);
 
 // Require User Authentication
 function throw401() {
@@ -38,7 +39,6 @@ function throw418() {
 	exit;
 }
 require_once('users.php');
-echo json_encode($_REQUEST); exit;
 
 // Login
 /*
@@ -51,8 +51,10 @@ if (strpos($_SERVER['HTTP_USER_AGENT'], 'Chrome') !== false) {
 	$valid_response = md5("$a1:{$data['nonce']}:{$data['nc']}:{$data['cnonce']}:{$data['qop']}:$a2");
 	if ($data['response'] != $valid_response) throw401();
 } else /**/ if (!empty($_POST)) {
-	if (!Users::authorized($_POST['username'])) throw418();
-	if ($_POST['password'] != Users::getPassword($_POST['username'])) throw418();
+	if (!Users::joined($_POST['uuid'])) {
+		if (!Users::authorized($_POST['username'])) throw418();
+		if ($_POST['password'] != Users::getPassword($_POST['username'])) throw418();
+	}
 	$_SESSION['authFPS'] = uniqid(rand(100,999));
 } else if (empty($_SESSION['authFPS'])) throw418();
 

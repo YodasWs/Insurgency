@@ -5,6 +5,25 @@
 		return false;
 	});
 
+	// Add Back Button to Home
+	switch(device.platform) {
+	case 'Android':
+	case 'iOS':
+		btnBack = Zepto('<a href="#back">Back</a>').click(function() {
+			switchSection('#'+Zepto(this).closest('article').find('section').first().attr('id'));
+
+			return false;
+		});
+		if (device.platform == 'Android') {
+			btnBack.text('').addClass('glyphicon').addClass('glyphicon-chevron-left');
+		}
+		if (device.platform == 'iOS') {
+			btnBack.prepend('<span class="glyphicon glyphicon-chevron-left"></span>');
+			btnBack.addClass('btn').addClass('btn-default');
+		}
+		Zepto('section:not(:first-of-type) > header').prepend(btnBack);
+	}
+
 	// Login Form
 	Zepto('#login form').submit(function() {
 		var password = Zepto('#login form input[name="password"]').val();
@@ -14,8 +33,9 @@
 			data: { password:password, username:username, uuid:device.uuid },
 			type:'POST',dataType:'json',
 			complete:function(xhr) {
-window.location = 'homebase.html';
-return;
+alert(xhr.response);
+//window.location = 'homebase.html';
+//return;
 				switch (xhr.status) {
 				case 200:
 					switchSection('#home');
@@ -37,6 +57,29 @@ return;
 			}
 		}); else console.log('not logged in');
 		return false;
+	});
+
+	Zepto.ajax({
+		url: 'http://yodas.ws/fps/user', data: { uuid:device.uuid },
+		type:'POST',dataType:'json',
+		complete:function(xhr) {
+			switch (xhr.status) {
+			case 200:
+				Zepto('article#homebase').show().find('section').first().show();
+				break;
+			case 401:
+				Zepto('article#start, section#login').show();
+				if (Zepto(document).width() > 700) {
+					Zepto('input[name="username"]').closest('label').prepend('<span>Username: </span>');
+					Zepto('input[name="password"]').closest('label').prepend('<span>Password: </span>');
+					Zepto('input[name="confrmPW"]').closest('label').prepend('<span>Confirm: </span>');
+				}
+				break;
+			}
+			Zepto('#loading').animate({opacity:0}, 'slow', 'ease-out', function() {
+				Zepto(this).remove();
+			});
+		}
 	});
 }, false);
 
@@ -72,6 +115,7 @@ function switchSection(newSection, oldSection) {
 		}
 		return false;
 	}
+oldSection.hide(); newSection.show(); return;
 
 	// Slide to New Section
 	var direction = newSection.is(':first-of-type') ? 1 : -1;
