@@ -68,6 +68,8 @@ alert(xhr.response);
 				Zepto('article#homebase').show().find('section').first().show();
 				break;
 			case 401:
+			case 418:
+			default:
 				Zepto('article#start, section#login').show();
 				if (Zepto(document).width() > 700) {
 					Zepto('input[name="username"]').closest('label').prepend('<span>Username: </span>');
