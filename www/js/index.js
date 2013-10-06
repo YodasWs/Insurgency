@@ -32,36 +32,25 @@
 			url: 'http://yodas.ws/fps/user', type:'POST', dataType:'text',
 			data: { password:password, username:username },
 //			headers: {'Origin':'mobile:'+device.uuid},
-			complete:function(xhr) {
-alert(xhr.response);
-//window.location = 'homebase.html';
-//return;
-				switch (xhr.status) {
-				case 200:
-					switchSection('#home');
-					break;
-				case 401:
-					alert('error 401');
-					switchSection('#login');
-//					sendLogin(callback);
-					break;
-				case 418:
-					alert('error 418');
-					switchSection('#login');
-					break;
-				default:
-					alert('error ' + xhr.status);
-					switchSection('#login');
-					break;
-				}
-			}
+			complete:function(xhr) { switch (xhr.status) {
+			case 200:
+				switchSection('#homebase');
+				break;
+			case 401:
+			case 418:
+			default:
+				alert('error ' + xhr.status);
+				switchSection('#login');
+				break;
+			} }
 		}); else console.log('not logged in');
 		return false;
 	});
 
 	Zepto.ajax({
 		url: 'http://yodas.ws/fps/user',
-		type:'GET', dataType:'json', headers:{'Origin':'mobile:'+device.uuid},
+data:{uuid:'mobile:'+device.uuid},
+		type:'POST', dataType:'json', //headers:{'Origin':'mobile:'+device.uuid},
 		complete:function(xhr) {
 			switch (xhr.status) {
 			case 200:
@@ -92,8 +81,6 @@ function switchSection(newSection, oldSection) {
 		});
 	else if (typeof oldSection === 'string')
 		oldSection = Zepto(oldSection);
-//	if (oldSection.closest('article').is('#home')) // For phones with back buttons
-//		history.pushState({page:$this.attr('href')}, null, $this.attr('href').substring(1));
 	if (typeof newSection === 'string' && newSection == '#home')
 		newSection = Zepto('#home > section').first();
 	else if (typeof newSection === 'string')
@@ -117,7 +104,13 @@ function switchSection(newSection, oldSection) {
 		}
 		return false;
 	}
-oldSection.hide(); newSection.show(); return;
+oldSection.closest('article').hide();
+oldSection.hide();
+newSection.closest('article').show();
+newSection.show();
+if (newSection.is('article'))
+	newSection.find('section').first().show();
+return;
 
 	// Slide to New Section
 	var direction = newSection.is(':first-of-type') ? 1 : -1;
