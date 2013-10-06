@@ -60,11 +60,6 @@ data:{uuid:'mobile:'+device.uuid},
 			case 418:
 			default:
 				Zepto('article#start, section#login').show();
-				if (Zepto(document).width() > 700) {
-					Zepto('input[name="username"]').closest('label').prepend('<span>Username: </span>');
-					Zepto('input[name="password"]').closest('label').prepend('<span>Password: </span>');
-					Zepto('input[name="confrmPW"]').closest('label').prepend('<span>Confirm: </span>');
-				}
 				break;
 			}
 			Zepto('#loading').animate({opacity:0}, 'slow', 'ease-out', function() {

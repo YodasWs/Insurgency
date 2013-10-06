@@ -1,10 +1,13 @@
 ﻿/* Styling for Android devices */
 article > section:not(:nth-child(1)) {
 	display: none;
-
 }
 
-section#signup form, section#login form { text-align: center; }
+/* Login, Signup Forms */
+section#signup form, section#login form {
+	max-width: 400px; margin: 0 auto; text-align: left;
+}
+section#signup form input[type="submit"], section#login form input[type="submit"], a[href="#signup"] { width: 100%; }
 
 /* App Header */
 body {padding-top:4em;}
@@ -26,7 +29,7 @@ section > header > a:first-child + h1 {
 	.btn-group-vertical {
 		display: block; width: 80%; margin: 1em auto;
 	}
-	.btn {
+	.btn, input[type="text"], input[type="password"], input[type="email"], input[type="tel"], input[type="search"] {
 		border-radius: 10px;
 	}
 	.btn-group-vertical > .btn:first-child:not(:last-child) {
