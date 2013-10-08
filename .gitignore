@@ -1,4 +1,5 @@
 ﻿#GITIGNORE
 api/keys.php
+api/mysql.php
 api/users.php
 www/res/zepto.js
