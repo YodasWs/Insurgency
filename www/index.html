@@ -9,6 +9,7 @@
 <link rel="stylesheet" href="css/index.css" />
 <link rel="stylesheet" href="css/app.css" />
 <script src="res/zepto.min.js"></script>
+<script src="res/bootstrap.min.js"></script>
 <script src="phonegap.js"></script>
 <script>
 if (!window.cordova && !window.PhoneGap && !window.phonegap) // Shim for browser testing
@@ -63,8 +64,13 @@ if (!window.cordova && !window.PhoneGap && !window.phonegap) // Shim for browser
 <article id="homebase">
 <section>
 	<header><h1>Insurgency</h1></header>
-	<div class="btn-group btn-group-sm btn-group-justified">
-	</div>
+<div class="btn-group">
+	<button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">Primary <span class="caret"></span></button>
+	<ul class="dropdown-menu">
+		<li>Option 1</li>
+		<li>Option 2</li>
+	</ul>
+</div>
 </section>
 </article>
 <div id="loading"><div class="f_circleG" id="frotateG_01"></div><div class="f_circleG" id="frotateG_02"></div><div class="f_circleG" id="frotateG_03"></div><div class="f_circleG" id="frotateG_04"></div><div class="f_circleG" id="frotateG_05"></div><div class="f_circleG" id="frotateG_06"></div><div class="f_circleG" id="frotateG_07"></div><div class="f_circleG" id="frotateG_08"></div></div>
