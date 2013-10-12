@@ -19,6 +19,6 @@ input, input:active {
 @media screen and (orientation: landscape) {
 }
 
-@media (min-device-width: 700px) {
+@media (min-device-width: 500px) {
 label { display: block; }
 }

@@ -4,10 +4,9 @@ article > section:not(:nth-child(1)) {
 }
 
 /* Login, Signup Forms */
-section#signup form, section#login form {
+section form {
 	width: 98%; max-width: 400px; margin: 0 auto; text-align: left;
 }
-section#signup form input[type="submit"], section#login form input[type="submit"], a[href="#signup"] { width: 100%; }
 
 /* App Header */
 body {padding-top:4em;}
@@ -36,7 +35,7 @@ section > header > a:first-child + h1 {
 	font-weight: bold; background-color: lightgrey;
 }
 
-@media (min-device-width: 700px) {
+@media (min-device-width: 500px) {
 	.btn-group-vertical {
 		display: block; width: 80%; margin: 1em auto;
 	}

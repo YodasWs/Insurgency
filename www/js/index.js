@@ -27,10 +27,19 @@
 
 	// Make Dropdowns Selectable and Update Button Text
 	$('.dropdown-menu.select > li').click(function() {
-		$(this).attr('selected', 'selected');
-		$(this).siblings('li').removeAttr('selected');
-		$(this).closest('ul').prev('button').html($(this).text()+' <span class="caret"></span>');
+		$(this).attr('selected', 'selected').siblings('li').removeAttr('selected');
+		$(this).closest('.btn-group').find('.btn').first().html($(this).text()+' <span class="caret"></span>');
 		$(document).trigger('click.bs.dropdown.data-api');
+	});
+
+	// Toggle Dropdown Caret
+	$(document).on('click.bs.dropdown.data-api', function() {
+		$('.btn-group').each(function() {
+			if ($(this).is('.open'))
+				$(this).find('.caret').removeClass('caret-right').removeClass('caret-left');
+			else
+				$(this).find('.caret').addClass('caret-right');
+		});
 	});
 
 	// Login Form
@@ -59,7 +68,7 @@
 	// Login User at App Start
 	$.ajax({
 		url: 'http://yodas.ws/fps/user',
-data:{uuid:'mobile:'+device.uuid},
+data:{uuid:'urn:x-mobile:'+device.uuid},
 		type:'POST', dataType:'json', //headers:{'Origin':'urn:x-mobile:'+device.uuid},
 		complete:function(xhr) {
 			switch (xhr.status) {
