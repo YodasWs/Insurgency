@@ -1,7 +1,8 @@
-﻿document.addEventListener('deviceready', function() {
+﻿document.addEventListener('deviceready', function() {$=Zepto;
+
 	// Change Section
-	Zepto('a[href^="#"]').click(function() {
-		switchSection(Zepto(this).attr('href'), Zepto(this).closest('section'));
+	$('a[href^="#"]').click(function() {
+		switchSection($(this).attr('href'), $(this).closest('section'));
 		return false;
 	});
 
@@ -9,8 +10,8 @@
 	switch(device.platform) {
 	case 'Android':
 	case 'iOS':
-		btnBack = Zepto('<a href="#back">Back</a>').click(function() {
-			switchSection('#'+Zepto(this).closest('article').find('section').first().attr('id'));
+		btnBack = $('<a href="#back">Back</a>').click(function() {
+			switchSection('#'+$(this).closest('article').find('section').first().attr('id'));
 
 			return false;
 		});
@@ -21,17 +22,25 @@
 			btnBack.prepend('<span class="glyphicon glyphicon-chevron-left"></span>');
 			btnBack.addClass('btn').addClass('btn-default');
 		}
-		Zepto('section:not(:first-of-type) > header').prepend(btnBack);
+		$('section:not(:first-of-type) > header').prepend(btnBack);
 	}
 
+	// Make Dropdowns Selectable and Update Button Text
+	$('.dropdown-menu.select > li').click(function() {
+		$(this).attr('selected', 'selected');
+		$(this).siblings('li').removeAttr('selected');
+		$(this).closest('ul').prev('button').html($(this).text()+' <span class="caret"></span>');
+		$(document).trigger('click.bs.dropdown.data-api');
+	});
+
 	// Login Form
-	Zepto('#login form').submit(function() {
-		var password = Zepto('#login form input[name="password"]').val();
-		var username = Zepto('#login form input[name="username"]').val();
-		if (username && password) Zepto.ajax({
+	$('#login form').submit(function() {
+		var password = $('#login form input[name="password"]').val();
+		var username = $('#login form input[name="username"]').val();
+		if (username && password) $.ajax({
 			url: 'http://yodas.ws/fps/user', type:'POST', dataType:'text',
 			data: { password:password, username:username },
-//			headers: {'Origin':'mobile:'+device.uuid},
+//			headers: {'Origin':'urn:x-mobile:'+device.uuid},
 			complete:function(xhr) { switch (xhr.status) {
 			case 200:
 				switchSection('#homebase');
@@ -47,39 +56,40 @@
 		return false;
 	});
 
-	Zepto.ajax({
+	// Login User at App Start
+	$.ajax({
 		url: 'http://yodas.ws/fps/user',
 data:{uuid:'mobile:'+device.uuid},
-		type:'POST', dataType:'json', //headers:{'Origin':'mobile:'+device.uuid},
+		type:'POST', dataType:'json', //headers:{'Origin':'urn:x-mobile:'+device.uuid},
 		complete:function(xhr) {
 			switch (xhr.status) {
 			case 200:
-				Zepto('article#homebase').show().find('section').first().show();
+				$('article#homebase').show().find('section').first().show();
 				break;
 			case 401:
 			case 418:
 			default:
-				Zepto('article#start, section#login').show();
+				$('article#start, section#login').show();
 				break;
 			}
-			Zepto('#loading').animate({opacity:0}, 'slow', 'ease-out', function() {
-				Zepto(this).remove();
+			$('#loading').animate({opacity:0}, 'slow', 'ease-out', function() {
+				$(this).remove();
 			});
 		}
 	});
 }, false);
 
-function switchSection(newSection, oldSection) {
+function switchSection(newSection, oldSection) { $=Zepto;
 	if (!oldSection)
-		oldSection = Zepto('section').filter(function() {
-			return Zepto(this).css('display') != 'none';
+		oldSection = $('section').filter(function() {
+			return $(this).css('display') != 'none';
 		});
 	else if (typeof oldSection === 'string')
-		oldSection = Zepto(oldSection);
+		oldSection = $(oldSection);
 	if (typeof newSection === 'string' && newSection == '#home')
-		newSection = Zepto('#home > section').first();
+		newSection = $('#home > section').first();
 	else if (typeof newSection === 'string')
-		newSection = Zepto(newSection);
+		newSection = $(newSection);
 	else if (typeof newSection !== 'object' || typeof newSection.closest !== 'function' || newSection.closest('article').attr('id') != 'home')
 		return false;
 	// Move to Same Section ?
@@ -112,26 +122,26 @@ return;
 	switch(device.platform) {
 	case 'Android':
 	case 'iOS':
-		Zepto('body').css({
-			overflow:'hidden',height:Zepto('window').height()
+		$('body').css({
+			overflow:'hidden',height:$('window').height()
 		});
 		oldSection.css({
 			position:'absolute',top:oldSection.offset().top+'px',width:'100%'
 		});
 		newSection.css({
-			position:'absolute',top:-1*direction*Zepto(window).height()+'px',width:'100%'
+			position:'absolute',top:-1*direction*$(window).height()+'px',width:'100%'
 		}).show();
 		oldSection.animate({
-			top:direction*Zepto(window).height()+'px'
+			top:direction*$(window).height()+'px'
 		}, 'slow', 'ease', function() {
-			Zepto(this).hide();
+			$(this).hide();
 		});
 		newSection.animate({
 			top:'0px'
 		}, 'slow', 'ease', function() {
-			Zepto(this).css({position:''});
+			$(this).css({position:''});
 			oldSection.hide();
-			Zepto('body').css({overflow:'auto',height:'auto'});
+			$('body').css({overflow:'auto',height:'auto'});
 		});
 		break;
 	case 'Win32NT':

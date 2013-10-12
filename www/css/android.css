@@ -25,6 +25,17 @@ section > header > a:first-child + h1 {
 	margin-left: 2px;
 }
 
+/* Dropdown Selectors */
+.dropdown-menu.select > li {
+	cursor: pointer;
+}
+.dropdown-menu.select > li:hover, .dropdown-menu.select > li:active {
+	background-color: #eeeeee;
+}
+.dropdown-menu.select > li[selected] {
+	font-weight: bold; background-color: lightgrey;
+}
+
 @media (min-device-width: 700px) {
 	.btn-group-vertical {
 		display: block; width: 80%; margin: 1em auto;
